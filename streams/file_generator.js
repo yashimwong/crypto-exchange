@@ -1,7 +1,7 @@
 const { writeFileSync, statSync } = require("fs");
 
 // This script is to generate a large file to test with streams
-for (let i = 0; i < 10000; i++) {
+for (let i = 0; i < 100000; i++) {
   let additional_string =
     i > 0 ? Number(statSync("./content/large_file.txt").size) / 1000 : "";
 
