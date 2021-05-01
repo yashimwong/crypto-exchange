@@ -1,4 +1,4 @@
-const { readFile, writeFile, write } = require("fs");
+const { readFile, writeFile } = require("fs");
 
 const getText = (path) => {
   return new Promise((resolve, reject) => {
@@ -12,22 +12,26 @@ const getText = (path) => {
   });
 };
 
-const writeText = (path, result) => {
+const writeText = (path, data) => {
   return new Promise((resolve, reject) => {
-    writeFile(
-      path,
-      () => {
-        let output_string;
-        result.map((r) => output_string.concat(r));
-        return output_string;
-      },
-      (error, result) => {
-        if (error) {
-          return reject(error);
-        } else {
-          return resolve();
-        }
+    writeFile(path, data, (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve();
       }
-    );
+    });
   });
 };
+
+const start = async () => {
+  try {
+    const first = await getText("./content/first.txt");
+    const second = await getText("./content/subfolder/second.txt");
+    writeText("./content/promise-write.txt", `${first} ${second}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
