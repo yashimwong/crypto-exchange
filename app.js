@@ -1,16 +1,12 @@
-const { createReadStream } = require("fs");
+const express = require("express");
 
-// Stream - for large files where it cannot load all data into
-// a variable
-const stream = createReadStream("./content/large_file.txt", {
-  highWaterMark: 128000,
-  encoding: "utf-8",
+const server = express();
+const port = 3001;
+
+server.get("/", (req, res) => {
+    res.send("Hello World!");
 });
 
-stream.on("data", (result) => {
-  console.log(result);
-});
-
-stream.on("error", (error) => {
-  console.log(error);
+server.listen(port, () => {
+    console.log(`Server started at port http://localhost:${port}`);
 });
