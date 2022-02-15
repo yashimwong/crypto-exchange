@@ -3,9 +3,10 @@ import { AccountModule } from './account/account.module';
 import { WalletModule } from './wallet/wallet.module';
 import { FeedModule } from './feed/feed.module';
 import { TradeModule } from './trade/trade.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-    imports: [AccountModule, WalletModule, FeedModule, TradeModule],
+    imports: [AccountModule, WalletModule, FeedModule, TradeModule, AuthModule],
     controllers: [],
     providers: [],
 })
