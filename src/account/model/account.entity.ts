@@ -15,7 +15,7 @@ export class Account {
     full_name: string;
 
     @Column({ default: '' })
-    phone: string;
+    phone_number: string;
 
     @Column({ nullable: true })
     date_of_birth: Date;
