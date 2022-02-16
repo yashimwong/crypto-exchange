@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Wallet } from 'src/wallet/model/wallet.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Account {
@@ -31,4 +32,7 @@ export class Account {
 
     @Column({ default: '' })
     address_postcode: string;
+
+    @OneToMany((_type) => Wallet, (wallet) => wallet.account, { eager: true })
+    wallet: Wallet;
 }
