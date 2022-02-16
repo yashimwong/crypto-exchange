@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { WalletModule } from './wallet/wallet.module';
 import { FeedModule } from './feed/feed.module';
 import { TradeModule } from './trade/trade.module';
-import { AuthModule } from './auth/auth.module';
+import { AccountModule } from './account/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -19,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             autoLoadEntities: true,
             synchronize: true,
         }),
-        AuthModule,
+        AccountModule,
         WalletModule,
         FeedModule,
         TradeModule,

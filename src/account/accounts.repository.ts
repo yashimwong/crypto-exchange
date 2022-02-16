@@ -1,10 +1,10 @@
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
-import { User } from './model/user.entity';
+import { Account } from './model/account.entity';
 
-@EntityRepository(User)
-export class UsersRepository extends Repository<User> {
+@EntityRepository(Account)
+export class AccountsRepository extends Repository<Account> {
     async createUser(authCredentialsDTO: AuthCredentialsDTO): Promise<void> {
         const user = this.create(authCredentialsDTO);
 
