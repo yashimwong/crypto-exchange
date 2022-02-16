@@ -8,7 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ envFilePath: ['.development.env'], isGlobal: true }),
+        ConfigModule.forRoot({ envFilePath: ['.env.development'], isGlobal: true }),
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: 'localhost',
