@@ -6,32 +6,29 @@ export class User {
     id: string;
 
     @Column({ unique: true })
-    username: string;
+    email: string;
 
     @Column()
     password: string;
 
-    @Column({ unique: true })
-    email: string;
-
-    @Column()
+    @Column({ default: '' })
     full_name: string;
 
-    @Column()
+    @Column({ default: '' })
     phone: string;
 
-    @Column()
+    @Column({ nullable: true })
     date_of_birth: Date;
 
-    @Column()
+    @Column({ default: '' })
     address_line1: string;
 
-    @Column()
+    @Column({ default: '' })
     address_line2: string;
 
-    @Column()
+    @Column({ default: '' })
     address_country: string;
 
-    @Column()
+    @Column({ default: '' })
     address_postcode: string;
 }
