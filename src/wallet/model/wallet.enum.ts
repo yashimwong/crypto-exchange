@@ -3,3 +3,8 @@ export enum Currency {
     BTC = 'Bitcoin',
     ETH = 'Ethereum',
 }
+
+export enum WalletActions {
+    withdraw = 'withdraw',
+    deposit = 'deposit',
+}
