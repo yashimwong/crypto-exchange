@@ -33,6 +33,6 @@ export class Account {
     @Column({ default: '' })
     address_postcode: string;
 
-    @OneToMany((_type) => Wallet, (wallet) => wallet.account, { eager: true })
+    @OneToMany(() => Wallet, (wallet) => wallet.account, { eager: true })
     wallet: Wallet;
 }

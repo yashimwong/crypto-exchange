@@ -14,7 +14,7 @@ export class Wallet {
     @Column({ default: 0 })
     balance: number;
 
-    @ManyToOne((_type) => Account, (account) => account.wallet)
+    @ManyToOne(() => Account, (account) => account.wallet)
     @Exclude({ toPlainOnly: true })
     account: Account;
 }
