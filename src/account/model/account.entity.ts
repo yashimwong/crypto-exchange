@@ -34,5 +34,5 @@ export class Account {
     address_postcode: string;
 
     @OneToMany(() => Wallet, (wallet) => wallet.account, { eager: true })
-    wallet: Wallet;
+    wallet: [Wallet];
 }

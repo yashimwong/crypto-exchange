@@ -17,7 +17,7 @@ export class WalletService {
     async addWallet(walletDTO: WalletDTO): Promise<Wallet> {
         const { account_id, currency } = walletDTO;
         const account = await this.accountService.getAccountById(account_id);
-        if (account.wallet.currency === currency) {
+        if (account.wallet.some((w) => w.currency === currency)) {
             throw new ConflictException(`You already have ${currency} account available.`);
         }
 
