@@ -1,6 +1,6 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AccountsRepository } from 'src/account/accounts.repository';
+import { AccountService } from 'src/account/account.service';
 import { WalletDTO } from './dto/create-wallet.dto';
 import { WalletBalanceDTO } from './dto/wallet-balance.dto';
 import { Wallet } from './model/wallet.entity';
@@ -11,15 +11,12 @@ import { WalletRepository } from './wallet.repository';
 export class WalletService {
     constructor(
         @InjectRepository(WalletRepository) private walletRepository: WalletRepository,
-        @InjectRepository(AccountsRepository) private accountRepository: AccountsRepository,
+        private accountService: AccountService,
     ) {}
 
     async addWallet(walletDTO: WalletDTO): Promise<Wallet> {
         const { account_id, currency } = walletDTO;
-        const account = await this.accountRepository.findOne(account_id);
-        if (!account) {
-            throw new NotFoundException(`Account with ID: ${account_id} not found.`);
-        }
+        const account = await this.accountService.getAccountById(account_id);
         if (account.wallet.currency === currency) {
             throw new ConflictException(`You already have ${currency} account available.`);
         }
@@ -30,11 +27,7 @@ export class WalletService {
     }
 
     async getWallets(account_id: string) {
-        const account = await this.accountRepository.findOne(account_id);
-        if (!account) {
-            throw new NotFoundException(`Account with ID: ${account_id} not found.`);
-        }
-
+        const account = await this.accountService.getAccountById(account_id);
         return account.wallet;
     }
 
