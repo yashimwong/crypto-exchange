@@ -15,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             port: 5432,
             username: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
-            database: 'websukit',
+            database: process.env.DB_NAME,
             autoLoadEntities: true,
             synchronize: true,
         }),
