@@ -26,27 +26,34 @@ export class WalletService {
         return new_wallet;
     }
 
-    async getWallets(account_id: string) {
-        const account = await this.accountService.getAccountById(account_id);
-        return account.wallet;
-    }
-
-    async updateBalance(walletBalanceDTO: WalletBalanceDTO): Promise<Wallet> {
-        const { id, currency, action, amount } = walletBalanceDTO;
+    async getWalletById(id: string): Promise<Wallet> {
         const wallet = await this.walletRepository.findOne(id);
         if (!wallet) {
             throw new NotFoundException(`Wallet with ID: ${id} not found.`);
         }
+        return wallet;
+    }
+
+    async updateBalance(id: string, walletBalanceDTO: WalletBalanceDTO): Promise<Wallet> {
+        const wallet = await this.getWalletById(id);
+
+        const { currency, action, amount } = walletBalanceDTO;
         if (wallet.currency !== currency) {
             throw new BadRequestException(`Currency ${currency} does not match wallet.`);
         }
 
+        const current_balance = Number(wallet.balance);
+        const sent_amount = Number(amount);
+
         switch (action) {
             case WalletActions.deposit:
-                wallet.balance += amount;
+                wallet.balance = current_balance + sent_amount;
                 break;
             default:
-                wallet.balance -= amount;
+                if (current_balance < sent_amount) {
+                    throw new BadRequestException(`Insufficient balance.`);
+                }
+                wallet.balance = current_balance - sent_amount;
         }
 
         this.walletRepository.save(wallet);
