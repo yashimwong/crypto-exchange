@@ -1,10 +1,10 @@
-import { IsEnum, IsString } from 'class-validator';
-import { Currency } from '../model/wallet.enum';
+import { IsString, Matches } from 'class-validator';
 
 export class WalletDTO {
     @IsString()
     account_id: string;
 
-    @IsEnum(Currency)
-    currency: Currency;
+    @IsString()
+    @Matches(/^[A-Z]{3}$/, { message: 'Invalid currency.' })
+    currency: string;
 }

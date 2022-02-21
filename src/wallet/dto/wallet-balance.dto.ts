@@ -1,9 +1,10 @@
-import { IsEnum, IsNumber, IsPositive, IsString, Max, Min } from 'class-validator';
-import { Currency, WalletActions } from '../model/wallet.enum';
+import { IsEnum, IsString, Matches } from 'class-validator';
+import { WalletActions } from '../model/wallet.enum';
 
 export class WalletBalanceDTO {
-    @IsEnum(Currency)
-    currency: Currency;
+    @IsString()
+    @Matches(/^[A-Z]{3}$/, { message: 'Invalid currency.' })
+    currency: string;
 
     @IsEnum(WalletActions)
     action: WalletActions;

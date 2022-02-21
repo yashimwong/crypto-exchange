@@ -18,7 +18,7 @@ export class WalletService {
         const { account_id, currency } = walletDTO;
         const account = await this.accountService.getAccountById(account_id);
         if (account.wallet.some((w) => w.currency === currency)) {
-            throw new ConflictException(`You already have ${currency} account available.`);
+            throw new ConflictException(`You already have a $${currency} account.`);
         }
 
         const new_wallet = this.walletRepository.create({ currency, balance: 0, account });

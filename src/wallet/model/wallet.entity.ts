@@ -1,7 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { Account } from 'src/account/model/account.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Currency } from './wallet.enum';
 
 @Entity()
 export class Wallet {
@@ -9,7 +8,7 @@ export class Wallet {
     id: string;
 
     @Column()
-    currency: Currency;
+    currency: string;
 
     @Column('decimal', { default: 0, precision: 8 })
     balance: number;
