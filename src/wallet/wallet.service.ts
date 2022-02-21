@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AccountService } from 'src/account/account.service';
 import { WalletDTO } from './dto/create-wallet.dto';
 import { WalletBalanceDTO } from './dto/wallet-balance.dto';
+import { WalletTransferDTO } from './dto/wallet-transfer.dto';
 import { Wallet } from './model/wallet.entity';
 import { WalletActions } from './model/wallet.enum';
 import { WalletRepository } from './wallet.repository';
@@ -48,16 +49,40 @@ export class WalletService {
         switch (action) {
             case WalletActions.deposit:
                 wallet.balance = current_balance + sent_amount;
-                console.log(current_balance, '+', sent_amount, '=', current_balance + sent_amount);
                 break;
             default:
                 if (current_balance < sent_amount) {
-                    throw new BadRequestException(`Insufficient balance.`);
+                    throw new BadRequestException('Insufficient balance.');
                 }
                 wallet.balance = current_balance - sent_amount;
         }
 
         this.walletRepository.save(wallet);
         return wallet;
+    }
+
+    async transferFunds(walletTransferDTO: WalletTransferDTO): Promise<Wallet> {
+        const { from_id, to_id, amount } = walletTransferDTO;
+
+        const sender = await this.getWalletById(from_id);
+        const receiver = await this.getWalletById(to_id);
+
+        if (!sender || !receiver) {
+            throw new BadRequestException('Account does not exist.');
+        }
+        if (sender.currency !== sender.currency) {
+            throw new BadRequestException('Receiver currency does not match.');
+        }
+        if (amount > sender.balance) {
+            throw new BadRequestException('Insufficient balance.');
+        }
+
+        sender.balance = Number.parseFloat(sender.balance.toString()) - Number.parseFloat(amount.toString());
+        receiver.balance = Number.parseFloat(receiver.balance.toString()) + Number.parseFloat(amount.toString());
+
+        this.walletRepository.save(sender);
+        this.walletRepository.save(receiver);
+
+        return sender;
     }
 }

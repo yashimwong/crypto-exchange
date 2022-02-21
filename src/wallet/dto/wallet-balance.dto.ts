@@ -1,4 +1,4 @@
-import { IsDecimal, IsEnum, IsString, Matches } from 'class-validator';
+import { IsDecimal, IsEnum, IsPositive, IsString, Matches } from 'class-validator';
 import { WalletActions } from '../model/wallet.enum';
 
 export class WalletBalanceDTO {
@@ -9,6 +9,7 @@ export class WalletBalanceDTO {
     @IsEnum(WalletActions)
     action: WalletActions;
 
+    @IsPositive()
     @IsDecimal()
     amount: number;
 }
