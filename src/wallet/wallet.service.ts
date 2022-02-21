@@ -42,12 +42,13 @@ export class WalletService {
             throw new BadRequestException(`Currency ${currency} does not match wallet.`);
         }
 
-        const current_balance = Number(wallet.balance);
-        const sent_amount = Number(amount);
+        const current_balance = Number.parseFloat(wallet.balance.toString());
+        const sent_amount = Number.parseFloat(amount.toString());
 
         switch (action) {
             case WalletActions.deposit:
                 wallet.balance = current_balance + sent_amount;
+                console.log(current_balance, '+', sent_amount, '=', current_balance + sent_amount);
                 break;
             default:
                 if (current_balance < sent_amount) {
