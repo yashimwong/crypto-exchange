@@ -5,6 +5,6 @@ export class WalletDTO {
     account_id: string;
 
     @IsString()
-    @Matches(/^[A-Z]{3}$/, { message: 'Invalid currency.' })
+    @Matches(/^[A-Z]{3,4}$/, { message: 'Invalid currency.' })
     currency: string;
 }

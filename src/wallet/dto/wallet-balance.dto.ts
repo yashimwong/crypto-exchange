@@ -3,7 +3,7 @@ import { WalletActions } from '../model/wallet.enum';
 
 export class WalletBalanceDTO {
     @IsString()
-    @Matches(/^[A-Z]{3}$/, { message: 'Invalid currency.' })
+    @Matches(/^[A-Z]{3,4}$/, { message: 'Invalid currency.' })
     currency: string;
 
     @IsEnum(WalletActions)
