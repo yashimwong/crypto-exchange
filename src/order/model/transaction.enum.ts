@@ -1,9 +1,9 @@
-export enum OrderActions {
+export enum TransactionAction {
     buy = 'buy',
     sell = 'sell',
 }
 
-export enum OrderStatus {
+export enum TransactionStatus {
     pending = 'pending',
     success = 'succcess',
     rejected = 'rejected',

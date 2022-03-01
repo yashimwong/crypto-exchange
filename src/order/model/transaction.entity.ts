@@ -1,9 +1,9 @@
 import { Wallet } from 'src/wallet/model/wallet.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { OrderActions, OrderStatus } from './order.enum';
+import { TransactionAction, TransactionStatus } from './transaction.enum';
 
 @Entity()
-export class Order {
+export class Transaction {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -11,7 +11,10 @@ export class Order {
     currency: string;
 
     @Column()
-    type: OrderActions;
+    type: TransactionAction;
+
+    @Column('decimal', { default: 0, precision: 8 })
+    current_price: number;
 
     @Column('decimal', { default: 0, precision: 8 })
     price: number;
@@ -20,7 +23,7 @@ export class Order {
     time: Date;
 
     @Column()
-    status: OrderStatus;
+    status: TransactionStatus;
 
     @ManyToOne(() => Wallet)
     wallet: Wallet;

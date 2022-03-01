@@ -4,7 +4,7 @@ import { WalletModule } from './wallet/wallet.module';
 import { FeedModule } from './feed/feed.module';
 import { AccountModule } from './account/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrderModule } from './order/order.module';
+import { TransactionModule } from './order/transaction.module';
 
 @Module({
     imports: [
@@ -22,7 +22,7 @@ import { OrderModule } from './order/order.module';
         AccountModule,
         WalletModule,
         FeedModule,
-        OrderModule,
+        TransactionModule,
     ],
     controllers: [],
     providers: [],
