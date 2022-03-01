@@ -17,7 +17,7 @@ export class Transaction {
     current_price: number;
 
     @Column('decimal', { default: 0, precision: 8 })
-    price: number;
+    amount: number;
 
     @Column()
     time: Date;
