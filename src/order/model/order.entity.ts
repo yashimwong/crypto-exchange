@@ -1,6 +1,6 @@
 import { Wallet } from 'src/wallet/model/wallet.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { OrderActions } from './order.enum';
+import { OrderActions, OrderStatus } from './order.enum';
 
 @Entity()
 export class Order {
@@ -18,6 +18,9 @@ export class Order {
 
     @Column()
     time: Date;
+
+    @Column()
+    status: OrderStatus;
 
     @ManyToOne(() => Wallet)
     wallet: Wallet;
