@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { WalletModule } from './wallet/wallet.module';
 import { FeedModule } from './feed/feed.module';
-import { TradeModule } from './trade/trade.module';
 import { AccountModule } from './account/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { OrderModule } from './order/order.module';
 
 @Module({
     imports: [
@@ -22,7 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         AccountModule,
         WalletModule,
         FeedModule,
-        TradeModule,
+        OrderModule,
     ],
     controllers: [],
     providers: [],
