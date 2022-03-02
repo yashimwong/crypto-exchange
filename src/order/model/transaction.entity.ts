@@ -1,6 +1,6 @@
 import { Wallet } from 'src/wallet/model/wallet.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { TransactionAction, TransactionStatus } from './transaction.enum';
+import { TransactionType, TransactionStatus } from './transaction.enum';
 
 @Entity()
 export class Transaction {
@@ -11,13 +11,13 @@ export class Transaction {
     currency: string;
 
     @Column()
-    type: TransactionAction;
+    type: TransactionType;
 
     @Column('decimal', { default: 0, precision: 8 })
     current_price: number;
 
     @Column('decimal', { default: 0, precision: 8 })
-    amount: number;
+    quantity: number;
 
     @Column()
     time: Date;
